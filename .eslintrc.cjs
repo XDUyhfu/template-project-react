@@ -1,7 +1,9 @@
 module.exports = {
     env: {
         browser: true,
-        es2021: true
+        es6: true,
+        node: true,
+        jest: true
     },
     settings: {
         react: {
@@ -26,11 +28,13 @@ module.exports = {
     rules: {
         // 注意要加上这一句，开启 prettier 自动修复的功能
         'prettier/prettier': 'error',
-        quotes: ['error', 'single'],
-        semi: ['error', 'always'],
+        'quotes': ['error', 'single'],
+        'semi': ['error', 'always'],
         'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-empty-function': 'off',
-        'no-empty-pattern': 'off'
+        'no-empty-pattern': 'off',
+        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     }
 };
