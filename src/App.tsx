@@ -1,12 +1,11 @@
-import reactLogo from '@/assets/react.svg';
 import viteLogo from '/vite.svg';
+import reactLogo from '/react.svg';
 import './App.scss';
 import { useStoreValue } from '@/store';
 import { Button } from 'antd';
 
 function App() {
     const [value, setValue] = useStoreValue();
-    console.log('value', value, 'setValue', setValue);
     return (
         <div className="flex items-center justify-center mt-20">
             <span className="test-text">{value}</span>
@@ -15,7 +14,7 @@ function App() {
 
             <Button
                 onClick={() => {
-                    setValue('test value');
+                    setValue('tests value');
                 }}
             >
                 点击进行测试

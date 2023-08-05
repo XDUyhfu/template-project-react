@@ -1,4 +1,4 @@
-// .stylelintrc.js
+
 module.exports = {
   // 注册 stylelint 的 prettier 插件
   plugins: ['stylelint-prettier'],
