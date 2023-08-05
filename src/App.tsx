@@ -14,7 +14,7 @@ function App() {
 
             <Button
                 onClick={() => {
-                    setValue('tests value');
+                    setValue('__tests__ value');
                 }}
             >
                 点击进行测试
