@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import tsIcon from '/typescript.svg';
-import { routes } from '@/router';
+import { routes } from '@/routes';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -9,6 +9,7 @@ const { Header, Content, Sider, Footer } = Layout;
 const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
+
     return (
         <Layout className="h-full">
             <Header className="flex items-center">
@@ -23,10 +24,9 @@ const App: React.FC = () => {
                 >
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
+                        defaultSelectedKeys={routes?.[0]?.children[0].key}
                         className="h-full border-r-0 overflow-y-auto"
-                        items={routes}
+                        items={routes?.[0]?.children}
                         onClick={({ keyPath }) => {
                             const path = keyPath.reverse().join('');
                             navigate(path);
