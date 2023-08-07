@@ -1,49 +1,14 @@
 import React, { useState } from 'react';
-import {
-    LaptopOutlined,
-    NotificationOutlined,
-    UserOutlined
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import tsIcon from '/typescript.svg';
+import { routes } from '@/router';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const { Header, Content, Sider, Footer } = Layout;
 
-const items: MenuProps['items'] = [
-    UserOutlined,
-    LaptopOutlined,
-    NotificationOutlined
-].map((icon, index) => {
-    const key = String(index + 1);
-
-    return {
-        key: `sub${key}`,
-        icon: React.createElement(icon),
-        label: `subnav ${key}`,
-
-        children: new Array(4).fill(null).map((_, j) => {
-            const subKey = index * 4 + j + 1;
-            return {
-                key: subKey,
-                label: `option${subKey}`,
-                icon: React.createElement(icon),
-
-                children: new Array(3).fill(null).map((_, index) => {
-                    return {
-                        key: subKey + index,
-                        label: subKey + index
-                    };
-                })
-            };
-        })
-    };
-});
-
 const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const navigate = useNavigate();
     return (
         <Layout className="h-full">
             <Header className="flex items-center">
@@ -61,7 +26,11 @@ const App: React.FC = () => {
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['sub1']}
                         className="h-full border-r-0 overflow-y-auto"
-                        items={items}
+                        items={routes}
+                        onClick={({ keyPath }) => {
+                            const path = keyPath.reverse().join('');
+                            navigate(path);
+                        }}
                     />
                 </Sider>
                 <Layout className="p-6 pb-0">
@@ -70,7 +39,9 @@ const App: React.FC = () => {
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Content>Content</Content>
+                    <Content>
+                        <Outlet />
+                    </Content>
                     <Footer className="text-center">
                         admin ©2023 Created by yhfu@stu.xidian.edu.cn
                     </Footer>
