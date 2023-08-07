@@ -1,25 +1,22 @@
 import App from '@/App.tsx';
 import { ErrorPage } from '@/pages/error';
-import type { ReRouter } from '@/routes/interface';
+import type { ReRoute } from '@/routes/interface';
 
-export const routes: ReRouter[] = [
+export const routes: ReRoute[] = [
     {
-        path: '/',
+        path: '/123',
         element: <App />,
-        key: '/',
-        label: '123',
+        label: 'App'
+    },
+    {
+        path: '404',
+        label: 'ErrorPage',
+        element: null,
         children: [
             {
                 path: '123',
-                element: <App />,
-                key: '123',
-                label: '123'
-            },
-            {
-                path: '404',
                 element: <ErrorPage />,
-                key: '404',
-                label: '1234'
+                label: 'App'
             }
         ]
     }
