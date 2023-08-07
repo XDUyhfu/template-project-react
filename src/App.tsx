@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     LaptopOutlined,
     NotificationOutlined,
@@ -10,7 +10,7 @@ import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import tsIcon from '/typescript.svg';
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider, Footer } = Layout;
 
 const items: MenuProps['items'] = [
     UserOutlined,
@@ -43,32 +43,37 @@ const items: MenuProps['items'] = [
 });
 
 const App: React.FC = () => {
+    const [collapsed, setCollapsed] = useState(false);
     return (
-        <Layout style={{ height: '100%' }}>
-            <Header style={{ display: 'flex', alignItems: 'center' }}>
+        <Layout className="h-full">
+            <Header className="flex items-center">
                 <img src={tsIcon} alt="" />
             </Header>
             <Layout>
-                <Sider width={200}>
+                <Sider
+                    width={200}
+                    collapsible
+                    collapsed={collapsed}
+                    onCollapse={(value) => setCollapsed(value)}
+                >
                     <Menu
                         mode="inline"
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['sub1']}
-                        style={{
-                            height: '100%',
-                            borderRight: 0,
-                            overflowY: 'auto'
-                        }}
+                        className="h-full border-r-0 overflow-y-auto"
                         items={items}
                     />
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
+                <Layout className="p-6 pb-0">
+                    <Breadcrumb className="pb-4">
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
                     <Content>Content</Content>
+                    <Footer className="text-center">
+                        admin ©2023 Created by yhfu@stu.xidian.edu.cn
+                    </Footer>
                 </Layout>
             </Layout>
         </Layout>
