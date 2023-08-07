@@ -16,6 +16,7 @@
     "lint:style": "stylelint --fix \"src/**/*.{css,scss,less}\""
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.5",
     "@types/ramda": "^0.29.3",
     "antd": "^5.4.6",
     "ramda": "^0.29.0",

@@ -1,6 +1,6 @@
-import App from '@/App.tsx';
 import { createBrowserRouter } from 'react-router-dom';
-import { ErrorPage } from '@/page/error';
+import App from '@/App.tsx';
+import { ErrorPage } from '@/pages/error';
 
 export const router = createBrowserRouter([
     {
