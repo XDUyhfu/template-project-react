@@ -1,6 +1,9 @@
 import type { ReRoute } from '@/routes/interface';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import { removeStartSlash } from '@/utils';
+
+const MaxMenuDeep = 3;
 
 const addKeyProp = (routes: ReRoute[], path = '/', deep = 1) => {
     routes.forEach((route) => {
@@ -12,7 +15,7 @@ const addKeyProp = (routes: ReRoute[], path = '/', deep = 1) => {
         if (Array.isArray(route.children)) {
             // 如果有 children 的话，element 不能包含其他元素
             route.element = null;
-            if (deep + 1 <= 2) {
+            if (deep + 1 <= MaxMenuDeep) {
                 addKeyProp(route.children, key, deep + 1);
             } else {
                 Reflect.deleteProperty(route, 'children');
@@ -21,12 +24,6 @@ const addKeyProp = (routes: ReRoute[], path = '/', deep = 1) => {
     });
     return routes;
 };
-
-/**
- * 删除字符串中开头的Slash /
- * @param path
- */
-const removeStartSlash = (path: string) => path.replace(/^\//, '');
 
 export const useRoutes = (routes: ReRoute[]) => {
     const [openKeys, setOpenKeys] = useState<string[]>();
@@ -46,7 +43,6 @@ export const useRoutes = (routes: ReRoute[]) => {
         openKeys,
         setOpenKeys,
         menu: addKeyProp(refRoutes.current),
-        defaultSelectedKey: refRoutes.current?.[0]?.path ?? '',
         navigate,
         selectedKeys: [location.pathname]
     };

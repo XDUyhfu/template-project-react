@@ -5,12 +5,13 @@ import { routes } from '@/routes';
 import './index.scss';
 import type { ReRoute } from '@/routes/interface';
 import App from '@/App.tsx';
+import { normalizeRoutePath } from '@/utils';
 
 const defaultRootRoute: ReRoute = {
     path: '/',
     element: <App />,
     key: '/',
-    children: routes
+    children: normalizeRoutePath(routes)
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

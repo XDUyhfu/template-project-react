@@ -9,14 +9,8 @@ const { Header, Content, Sider, Footer } = Layout;
 
 const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const {
-        navigate,
-        defaultSelectedKey,
-        menu,
-        openKeys,
-        selectedKeys,
-        setOpenKeys
-    } = useRoutes(routes);
+    const { navigate, menu, openKeys, selectedKeys, setOpenKeys } =
+        useRoutes(routes);
 
     return (
         <Layout className="h-full">
@@ -32,7 +26,6 @@ const App: React.FC = () => {
                 >
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={defaultSelectedKey}
                         selectedKeys={selectedKeys}
                         openKeys={openKeys}
                         onOpenChange={setOpenKeys}

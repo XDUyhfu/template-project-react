@@ -14,9 +14,20 @@ export const routes: ReRoute[] = [
         element: null,
         children: [
             {
-                path: '123',
+                path: '/123',
                 element: <ErrorPage />,
                 label: 'App'
+            },
+            {
+                path: '/23',
+                label: 'App',
+                children: [
+                    {
+                        path: '/1123',
+                        element: <App />,
+                        label: 'App'
+                    }
+                ]
             }
         ]
     }
