@@ -1,8 +1,8 @@
 import type { ReRoute } from '@/routes/interface';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const addKeyProp = (routes: ReRoute[], path = '/') => {
+const addKeyProp = (routes: ReRoute[], path = '/', deep = 1) => {
     routes.forEach((route) => {
         const key = `${path}/${removeStartSlash(route.path)}`.replace(
             /^\/\//,
@@ -12,7 +12,11 @@ const addKeyProp = (routes: ReRoute[], path = '/') => {
         if (Array.isArray(route.children)) {
             // 如果有 children 的话，element 不能包含其他元素
             route.element = null;
-            addKeyProp(route.children, key);
+            if (deep + 1 <= 2) {
+                addKeyProp(route.children, key, deep + 1);
+            } else {
+                Reflect.deleteProperty(route, 'children');
+            }
         }
     });
     return routes;
@@ -25,18 +29,22 @@ const addKeyProp = (routes: ReRoute[], path = '/') => {
 const removeStartSlash = (path: string) => path.replace(/^\//, '');
 
 export const useRoutes = (routes: ReRoute[]) => {
+    const [openKeys, setOpenKeys] = useState<string[]>();
     const refRoutes = useRef(routes);
     const location = useLocation();
     const navigate = useNavigate();
-    const keys = location.pathname.split('/');
-    keys.pop();
-    let key = '';
-    const openKeys = keys.map((item) => {
-        key = `${key}/${item}`;
-        return key;
-    });
+
+    useEffect(() => {
+        const keys = location.pathname.split('/').filter(Boolean);
+        const k = keys?.map((_, index, arr) => {
+            return '/' + [...arr].slice(0, index).join('/');
+        });
+        setOpenKeys(k);
+    }, [location.pathname]);
+
     return {
-        openKeys: ['/', ...openKeys],
+        openKeys,
+        setOpenKeys,
         menu: addKeyProp(refRoutes.current),
         defaultSelectedKey: refRoutes.current?.[0]?.path ?? '',
         navigate,

@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import tsIcon from '/typescript.svg';
 import { routes } from '@/routes';
 import { Outlet } from 'react-router-dom';
-
-import { useRoutes } from '@/hooks/routes';
+import { useRoutes } from '@/hooks';
 
 const { Header, Content, Sider, Footer } = Layout;
 
 const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const { navigate, defaultSelectedKey, menu, openKeys, selectedKeys } =
-        useRoutes(routes);
+    const {
+        navigate,
+        defaultSelectedKey,
+        menu,
+        openKeys,
+        selectedKeys,
+        setOpenKeys
+    } = useRoutes(routes);
 
     return (
         <Layout className="h-full">
@@ -30,19 +35,15 @@ const App: React.FC = () => {
                         defaultSelectedKeys={defaultSelectedKey}
                         selectedKeys={selectedKeys}
                         openKeys={openKeys}
-                        className="h-full border-r-0 overflow-y-auto"
-                        items={menu}
+                        onOpenChange={setOpenKeys}
                         onClick={({ keyPath }) => {
                             navigate(keyPath?.[0]);
                         }}
+                        className="h-full border-r-0 overflow-y-auto"
+                        items={menu}
                     />
                 </Sider>
                 <Layout className="p-6 pb-0">
-                    <Breadcrumb className="pb-4">
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item>List</Breadcrumb.Item>
-                        <Breadcrumb.Item>App</Breadcrumb.Item>
-                    </Breadcrumb>
                     <Content>
                         <Outlet />
                     </Content>
