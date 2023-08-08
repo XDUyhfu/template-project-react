@@ -16,6 +16,13 @@ const defaultRootRoute: ReRoute = {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <RouterProvider router={createBrowserRouter([defaultRootRoute])} />
+        <RouterProvider
+            router={createBrowserRouter([
+                defaultRootRoute,
+                {
+                    path: '*'
+                }
+            ])}
+        />
     </React.StrictMode>
 );

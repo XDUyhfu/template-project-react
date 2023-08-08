@@ -36,10 +36,12 @@ const App: React.FC = () => {
                         items={menu}
                     />
                 </Sider>
-                <Layout className="p-6 pb-0">
-                    <Content>
-                        <Outlet />
-                    </Content>
+                <Layout>
+                    <Layout className="p-6 overflow-y-auto">
+                        <Content className="">
+                            <Outlet />
+                        </Content>
+                    </Layout>
                     <Footer className="text-center">
                         admin ©2023 Created by yhfu@stu.xidian.edu.cn
                     </Footer>
