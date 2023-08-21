@@ -31,7 +31,8 @@ const items: DescriptionsProps['items'] = [
 ];
 
 export const InfoPanel = () => {
-    const delayResult = useDelay(2000);
+    const delayResult = useDelay();
+
     return (
         <Card>
             <Row align="middle">
@@ -49,7 +50,7 @@ export const InfoPanel = () => {
                     </>
                 ) : (
                     <Col span={24}>
-                        <Skeleton avatar paragraph={{ rows: 4 }} />
+                        <Skeleton avatar paragraph={{ rows: 2 }} />
                     </Col>
                 )}
             </Row>

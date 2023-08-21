@@ -4,7 +4,7 @@ import { Space } from 'antd';
 
 export const Setting = () => {
     return (
-        <Space direction="vertical" size="large">
+        <Space direction="vertical" size="large" className="w-full">
             <InfoPanel />
             <SettingPanel />
         </Space>

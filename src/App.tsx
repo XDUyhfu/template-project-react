@@ -22,8 +22,7 @@ const App: React.FC = () => {
                     width={200}
                     collapsible
                     collapsed={collapsed}
-                    onCollapse={(value) => setCollapsed(value)}
-                >
+                    onCollapse={(value) => setCollapsed(value)}>
                     <Menu
                         mode="inline"
                         selectedKeys={selectedKeys}
