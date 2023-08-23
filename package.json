@@ -12,7 +12,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "npm run lint:script && npm run lint:style",
-    "lint:script": "eslint --ext .js,.jsx,.ts,.tsx --fix --quiet ./",
+    "lint:script": "eslint --ext .js,.jsx,.ts,.tsx --fix --quiet ./src",
     "lint:style": "stylelint --fix \"src/**/*.{css,scss,less}\""
   },
   "dependencies": {
@@ -24,7 +24,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
     "rxjs": "^7.8.0",
-    "rxjs-hooks": "0.8.0-alpha.0"
+    "rxjs-hooks": "0.8.0-alpha.0",
+    "vite-plugin-stylelint": "^5.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
@@ -67,16 +68,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "pnpm lint"
     }
   },
   "lint-staged": {
     "**/*.{js,jsx,tsx,ts}": [
-      "npm run lint:script",
+      "pnpm lint:script",
       "git add ."
     ],
     "**/*.{scss,less,css}": [
-      "npm run lint:style",
+      "pnpm lint:style",
       "git add ."
     ]
   }
